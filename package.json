@@ -10,7 +10,8 @@
     "body-parser": "^1.18.2",
     "crypto2": "^0.3.3",
     "express": "^4.16.2",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "request": "^2.85.0"
   },
   "scripts": {
     "stage1": "babel-node stage1/app.js",
