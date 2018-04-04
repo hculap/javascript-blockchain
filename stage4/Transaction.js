@@ -1,7 +1,7 @@
 import crypto2 from 'crypto2'
 
-class Transaction{
-  constructor(args){
+export default class Transaction{
+  constructor(args = {}){
     this.from = args.from
     this.to = args.to
     this.amount = args.amount
@@ -16,7 +16,13 @@ class Transaction{
     });
   }
 
-  sign(privateKey){
+  async sign(privateKey){
+    this.signature = await crypto2.sign(this.payload, privateKey)
+  }
 
+  async isValid(){
+    if(! await crypto2.verify(this.payload, this.from, this.signature)){
+      throw new Error(`Transaction signature is invalid`)
+    }
   }
 }
