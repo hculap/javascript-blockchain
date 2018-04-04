@@ -1,5 +1,5 @@
 import crypto2 from 'crypto2'
-
+import request from 'request'
 import Blockchain from './Blockchain'
 import Block from './Block'
 import Transaction from './Transaction'
@@ -38,7 +38,6 @@ async function main(){
   await blockchain.isValid()
   console.log('IS VALID: ', true)
   console.log(new Array(40).join('-'))
-
 
 }
 

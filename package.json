@@ -18,6 +18,7 @@
     "stage2": "babel-node stage2/app.js",
     "stage3": "babel-node stage3/app.js",
     "stage4": "babel-node stage4/app.js",
-    "stage5": "babel-node stage5/app.js"
+    "stage5": "babel-node stage5/app.js",
+    "stage6": "babel-node stage6/app.js"
   }
 }
