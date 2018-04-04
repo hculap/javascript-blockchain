@@ -8,7 +8,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "body-parser": "^1.18.2",
-    "crypto2": "^0.3.3",
+    "crypto2": "^1.0.3",
     "express": "^4.16.2",
     "minimist": "^1.2.0",
     "request": "^2.85.0"
@@ -16,6 +16,7 @@
   "scripts": {
     "stage1": "babel-node stage1/app.js",
     "stage2": "babel-node stage2/app.js",
-    "stage3": "babel-node stage3/app.js"
+    "stage3": "babel-node stage3/app.js",
+    "stage4": "babel-node stage4/app.js"
   }
 }

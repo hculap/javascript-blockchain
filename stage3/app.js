@@ -1,26 +1,50 @@
 import crypto2 from 'crypto2'
 
-crypto2.createKeyPair((err, privateKey, publicKey) => {
-  const keyPair = {privateKey, publicKey}
+function getTransactionPayload(transaction){
+  return JSON.stringify({
+    from: transaction.from,
+    to: transaction.to,
+    amount: transaction.amount,
+  })
+}
 
-  console.log('KEYS: ', keyPair)
+async function main(){
+  const { privateKey, publicKey } = await crypto2.createKeyPair()
+
+  console.log(privateKey)
   console.log(new Array(40).join('-'))
 
-  const text = 'JavaScript Blockchain – czyli jak zrobić własną mini-cyfrowalutę'
-
-  console.log('TEXT: ', text);
+  console.log(publicKey)
   console.log(new Array(40).join('-'))
 
-  crypto2.sign(text, privateKey, (err, signature) => {
+  const transaction = {
+    from: 'szymon',
+    to: 'tomek',
+    amount: 100
+  }
 
-    console.log('SIGNATURE: ', signature)
-    console.log(new Array(40).join('-'))
+  let payload = getTransactionPayload(transaction)
 
-    crypto2.verify(text, keyPair.publicKey, signature, (err, isSignatureValid) => {
+  console.log('TRANSACTION: ', payload)
+  console.log(new Array(40).join('-'))
 
-      console.log('IS SIGNATURE VALID: ', isSignatureValid);
-      console.log(new Array(40).join('-'))
+  transaction.signature = await crypto2.sign(payload, privateKey)
 
-    });
-  });
-});
+  console.log('SIGNATURE: ', transaction.signature)
+  console.log(new Array(40).join('-'))
+
+  let isSignatureValid = await crypto2.verify(payload, publicKey, transaction.signature)
+
+  console.log('IS SIGNATURE VALID: ', isSignatureValid)
+  console.log(new Array(40).join('-'))
+
+  transaction.to = 'karol'
+  payload = getTransactionPayload(transaction)
+
+  isSignatureValid = await crypto2.verify(payload, publicKey, transaction.signature)
+
+  console.log('IS SIGNATURE VALID: ', isSignatureValid)
+  console.log(new Array(40).join('-'))
+}
+
+main()
