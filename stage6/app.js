@@ -1,10 +1,28 @@
 import crypto2 from 'crypto2'
-import request from 'request'
+import express from 'express'
 import Blockchain from './Blockchain'
 import Transaction from './Transaction'
+import Balance from './Balance'
 
 const users = []
 const blockchain = new Blockchain()
+
+const app = express()
+
+app.get('/blocks', (req, res) => {
+  res.send(blockchain.blocks)
+})
+
+app.get('/transactions', (req, res) => {
+  res.send(blockchain.transactions)
+})
+
+app.get('/balance', (req, res) => {
+  const balance = new Balance(blockchain)
+  res.send(balance.getBalances())
+})
+
+app.listen(3000)
 
 async function createTransaction(){
   const transaction = new Transaction({
@@ -23,7 +41,7 @@ async function main(){
   }
 
   setInterval(createTransaction, 1000)
-  // setInterval(() => { console.log(blockchain.blocks); }, 3000)
+  //setInterval(() => { console.log(blockchain) }, 3000)
   setInterval(() => { blockchain.createBlock() }, 2000)
 
 }

@@ -27,7 +27,6 @@ export default class Blockchain{
       }
 
       await block.mine()
-      console.log(block);
       this.blocks.push(block)
     }
   }
